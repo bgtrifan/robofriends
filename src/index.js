@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import CardList from './CardList'
+import App from './Containers/App'
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
-import { robots } from './robots'
+import {Provider, connect} from 'react-redux';
+import {createStore, applyMiddleware } from 'redux';
+import {searchRobots} from './reducers.js'; 
+import { createLogger } from 'redux-logger';
+
+
+const logger = createLogger();
+const store = createStore(searchRobots, applyMiddleware(logger));
 
 ReactDOM.render(
-		<CardList robots ={robots} />
-		,document.getElementById('root'));
+				<Provider store={store}>
+					<App />
+				</Provider>
+				,document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
